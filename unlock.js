@@ -8,7 +8,7 @@ try{const response=await fetch('18-papers.enc.json',{cache:'no-store'});if(!resp
 const material=await crypto.subtle.importKey('raw',new TextEncoder().encode(input.value),'PBKDF2',false,['deriveKey']);input.value='';
 const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(bundle.salt),iterations:bundle.iterations,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['decrypt']);
 const plaintext=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(bundle.iv)},key,b64(bundle.ciphertext));window.MockData=JSON.parse(new TextDecoder().decode(plaintext));
-const script=document.createElement('script');script.src='app.js';document.body.append(script);
+const script=document.createElement('script');script.src='app.js?v=8.2';document.body.append(script);
 }catch(err){input.value='';message.textContent='Unable to unlock. Check your password and try again. If the paper file is missing, reload later.';button.disabled=false;input.focus();}
 };
 })();
